@@ -1,0 +1,175 @@
+﻿@model CoolBooks.Models.CreateReviewViewModel
+
+<div>
+    <strong>Create Review</strong><br />
+    @Model.User.FirstName&nbsp;@Model.User.LastName
+
+    @using (Html.BeginForm("_Create", "View", FormMethod.Post, htmlAttributes: new { @id = "createReviewForm" }))
+    {
+        @Html.AntiForgeryToken()
+        HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <input type="hidden" id="Review_UserId" name="Review.UserId" value="0" /> //Dummy value
+        <input type="hidden" id="Review_BookId" name="Review.BookId" value="@Model.Review.BookId" />
+
+
+        <div class="form-group">
+            <div class="col-lg-12">
+                <label>Title</label>
+                @Html.EditorFor(model => model.Review.Title, new { htmlAttributes = new { @class = "form-control normal" } })
+                @Html.ValidationMessageFor(model => model.Review.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div class="col-lg-12">
+                <label>Description</label><br />
+                @Html.TextAreaFor(model => model.Review.Text, 10, 60, new { htmlAttributes = new { @class = "form-control large" } })
+                @Html.ValidationMessageFor(model => model.Review.Text, "", new { @class = "text-danger" })
+                <br /><span>Remaining characters:</span> <span id="count"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-lg-12">
+                <input type="hidden" id="Review_Rating" name="Raview.Rating" value="0" />
+                <label>Rating</label>
+                <div id="stars-existing" class="starrr"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-12">
+                <input id="btnSubmit" type="button" value="Create" class="btn btn-primary" />
+                <input type="reset" value="Cancel" class="btn btn-dark" />
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+            $(document).ready(function ()
+            {
+                /* Modified code from http://geoffmuskett.com/really-simple-jquery-character-countdown-in-textarea/ */
+                    var maxchar = 4000;
+                    $('#Review_Text').after('');
+                    $('#count').html( maxchar);
+                    $('#Review_Text').attr('maxlength', maxchar);
+                    $('#Review_Text').parent().addClass('wrap-text');
+                    $('#Review_Text').on("change keyup paste", function (e) {
+                        var len = $('#Review_Text').val().length;
+                        if (len >= maxchar && e.keyCode != 8)
+                            e.preventDefault();
+                        else if (len <= maxchar && e.keyCode == 8) {
+                            if (len <= maxchar && len != 0)
+                                $('#count').html( (maxchar - len + 1));
+                            else if (len == 0)
+                                $('#count').html((maxchar - len));
+                        } else
+                            $('#count').html((maxchar - len - 1));
+                    })
+
+
+                $("#btnSubmit").click(function () {
+                    if (!$('#createReviewForm').valid()) {
+                        return // exit
+                    }
+                $.ajax({
+                type: "POST",
+                url: "/View/_Create",
+                data: {
+                    "__RequestVerificationToken": $("*[name*='__RequestVerificationToken']").val(),
+                    "Review.BookId": $("#Review_BookId").val(),
+                    "Review.UserId": 0,
+                    "Review.Title": $("#Review_Title").val(),
+                    "Review.Text": $("#Review_Text").val(),
+                    "Review.Rating": $("#Review_Rating").val()
+                },
+                dataType: "html",
+                beforeSend: function () {
+                },
+                error: function () {
+                    alert("Error");
+                },
+                success: function (data) {
+                    $("#reviewContent").empty();
+                    $("#reviewContent").append(data);
+                }
+            });
+
+        });
+         @if (ViewBag.Saved != null)
+         {
+             // Reloads document to show new review in review list and empty create form.
+             <text>document.location = "/View/Index/</text>@Model.Review.BookId<text>";</text>
+         }
+            });
+
+
+            // Rating stars. One line added.
+            // Starrr plugin (https://github.com/dobtco/starrr)
+
+
+
+
+
+           // Starrs
+
+            $('.starrr').starrr({
+                rating:3,
+                max: 5
+            })
+
+      
+            $('.starrr').on('starrr:change', function (e, value) {
+                $("#Review_Rating").val(value);
+            })
+
+            /* Modified Code from: https://www.c-sharpcorner.com/article/asp-net-mvc5-jquery-form-validator/ */
+
+            $(document).ready(function () {
+                $('#createReviewForm').validate({
+                    errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+                    errorElement: 'div',
+                    errorPlacement: function (error, e) {
+                        e.parents('.form-group > div').append(error);
+                    },
+                    highlight: function (e) {
+
+                        $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                        $(e).closest('.help-block').remove();
+                    },
+                    success: function (e) {
+                        e.closest('.form-group').removeClass('has-success has-error');
+                        e.closest('.help-block').remove();
+                    },
+                    rules: {
+                        'Review.Title': {
+                            required: true,
+                            maxlength: 50
+                        },
+
+                        'Review.Text': {
+                            required: true,
+                            maxlength: 4000
+                        }
+                    },
+                    messages: {
+                        'Review.Title': {
+                            required: 'Please enter valid title',
+                            maxlength: 'Your text must not be longer than 50 characters'
+                        },
+
+                        'Review.Text': {
+                            required: 'Please provide a valid text',
+                            maxlength: 'Your text must not be longer than 4000 characters'
+                        }
+                    }
+                });
+            });
+</script>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CoolBooks.Models.Users>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Dictionary<string, int> userIdNr = (Dictionary<string, int>)Session["UserIdNr"];
+}
+
+<h2>Index</h2>
+
+<p>
+    <a href="/Users/Create" class="btn btn-primary">Add user</a>
+</p>
+<table class="table table-striped " id="userIndex">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="/Users/GetImageById/@userIdNr[@item.UserId]" height="80" /></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    <form action="/Users/Delete/@item.UserId">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+    $(document).ready(function () {
+        $('#userIndex').DataTable({
+            "searching": true,
+            "paging": true,
+
+            "columnDefs": [
+                { "width": "5%", "targets": 0 },
+                { "orderable": false, "targets": 3 },
+                { "orderable": false, "targets": 5 },
+                { "orderable": false, "targets": 6 },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+            "order": [[1, 'asc']]
+        });
+    });
+
+</script>

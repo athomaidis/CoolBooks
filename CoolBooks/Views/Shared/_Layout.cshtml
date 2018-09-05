@@ -1,0 +1,34 @@
+﻿@using MvcFlashMessages
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ABC</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/all.css" rel="stylesheet"/>
+    <link href="~/Content/custome.css" rel="stylesheet"/>
+    @Scripts.Render("~/bundles/modernizr")
+
+    <br />
+    @Scripts.Render("~/bundles/jquery")
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+    @Html.Partial("_NavBar")
+    <div class="container body-content">
+        @Html.RenderFlash()
+        @RenderBody()
+        <hr />
+        <br /><br />
+
+            @Html.Partial("Footer")
+    </div>
+
+    @Scripts.Render("~/bundles/lib")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

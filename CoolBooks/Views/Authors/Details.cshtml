@@ -1,0 +1,53 @@
+﻿@model CoolBooks.Models.Authors
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>View Author</h2>
+
+<div>
+    
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
+
+        <table class="table table-hover" id="authors">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Created)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Description)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Created)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CoolBooks.Models.ReviewViewModel>
+
+
+<strong>Reviews</strong><br />
+<div>
+    @if (Model.Count() == 0)
+    {
+        <p><br />
+        Thera are no reviews for this book.<br />
+        Be the first to write a review!</p>
+    }
+
+    @foreach (var item in Model)
+    {
+    <div>
+        <div class="row" >
+        <column class="col-lg-10">
+            <table class="table-condensed">
+                <thead>
+                    <tr>
+                        <th colspan="3">@Html.DisplayFor(modelItem => item.Title)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="starrrdisplay">
+                            @for (int i = 1; i <= 5; i++)
+    {
+        if (i <= item.Rating)
+        {
+                        <span class="fa fa-star"></span>
+}
+else
+{
+                        <span class="fa fa-star-o"></span>
+}
+}
+                        </td>
+                        <td class="text-muted">@item.UserFullName</td>
+                        
+                        <td class="text-muted">@Html.DisplayFor(model => item.Created)</td>
+                       
+                    </tr>
+                </tbody>
+            </table>
+        </column>
+        <column class="col-lg-2">
+            @if (new CoolBooks.Authorization(new CoolBooks.Authentication()).IsAuthorizedToDeleteReview(item, User))
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id },new { @class= "btn btn-danger " })
+    }
+        </column>
+        </div>
+        <hr />
+    </div>
+    }
+
+</div>
+
+

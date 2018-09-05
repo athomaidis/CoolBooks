@@ -1,0 +1,346 @@
+﻿@using System.Security.Policy
+@using System.Web.UI.WebControls
+@model CoolBooks.Models.IndexViewModel
+
+
+@{
+    ViewBag.Title = "Manage";
+}
+<h2>@ViewBag.Title.</h2>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Settings
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#setting" data-toggle="tab">Settings</a>
+                </li>
+                <li>
+                    <a href="#profile" data-toggle="tab">Profile</a>
+                </li>
+                <li>
+                    <a href="#review" data-toggle="tab">Reviews</a>
+                </li>
+                <li>
+                    <a href="#book" data-toggle="tab">Books</a>
+                </li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade" id="book">
+                    <h4>Books Created</h4>
+                    <table class="table">
+                        <tr>
+
+                            <td>
+                                Total Number of Books:-
+                                <button type="button" class="btn btn-success btn-circle">
+                                    @Model.UserBooks
+                                </button>
+                            </td>
+                            
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="tab-pane fade" id="profile">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                View Profile
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Address</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="success">
+                                                <td>@Model.UserInformation.FirstName</td>
+                                                <td>@Model.UserInformation.LastName</td>
+                                                <td>@Model.UserInformation.Address</td>
+                                                <td>@Model.UserInformation.Email</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="review">
+                    <h4>Review created</h4>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <a href="~/Reviews/MyReviews">
+                                    Total Number of Reviews:-
+                                    <button type="button" class="btn btn-success btn-circle">
+                                        @Model.UserReview
+                                    </button>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade in active" id="setting">
+                    <div class="container">
+                        
+                        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data" }))
+                        {
+                            <h1>Edit Profile</h1>
+                            <hr>
+
+                            <div class="row">
+                                <!-- left column -->
+                                <div class="col-md-3">
+                                    <div id="imgPreview" class="thumbnail new-thumnail">
+                                        @if (Model.UserInformation.Image != null)
+                                        {
+                                            <img class="img-responsive" src="/Users/GetCurrentUserImage" id="targetImg" style="width:300px; height:200px;" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-responsive" id="targetImg" src="~/Images/dummyuserimage.jpg" style="width:300px; height:200px;"/>
+                                        }
+
+                                        <div class="caption">
+                                            <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                            <span id="description"></span>
+                                        </div>
+                                    </div>
+                                    <input type="file" id="file" name="file" class="form-control">
+                                </div>
+
+                                <!-- edit form column -->
+                                <div class="col-md-9 personal-info">
+                                    <h3>Personal info</h3>
+
+
+
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" id="Users_UserId" name="Users.UserId" value="@Model.UserInformation.UserId" />
+                                    <input type="hidden" id="Users_Email" name="Users.Email" value="@Model.UserInformation.Email" />
+                                    <input type="hidden" id="User_File" name="Users.File" value="" />
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_FirstName" name="Users.FirstName" value="@Model.UserInformation.FirstName" />
+                                            @Html.ValidationMessageFor(model => model.UserInformation.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_LastName" name="Users.LastName" value="@Model.UserInformation.LastName" />
+                                            @Html.ValidationMessageFor(model => model.UserInformation.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_Address" name="Users.Address" value="@Model.UserInformation.Address" />
+                                            @Html.ValidationMessageFor(model => model.UserInformation.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Zipcode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_ZipCode" name="Users.ZipCode" value="@Model.UserInformation.ZipCode" />
+                                            @Html.ValidationMessageFor(model => model.Zipcode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_City" name="Users.City" value="@Model.UserInformation.City" />
+                                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <input type="text" id="Users_Country" name="Users.Country" value="@Model.UserInformation.Country" />
+                                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes">
+
+
+                                            <span></span>
+                                            <input type="reset" class="btn btn-default" value="Cancel">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>Password:</dt>
+                            <dd>
+                                [
+                                @if (Model.HasPassword)
+                                {
+                                    @Html.ActionLink("Change your password", "ChangePassword")
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Create", "SetPassword")
+                                }
+                                ]
+                            </dd>
+                            <dt>External Logins:</dt>
+                            <dd>
+                                @Model.Logins.Count [
+                                @Html.ActionLink("Manage", "ManageLogins") ]
+                            </dd>
+                            </dl>
+                            @*
+                                Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                                 See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                    for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                                 Uncomment the following block after you have set up two-factor authentication
+                            *@
+                            @*
+                                <dt>Phone Number:</dt>
+                                <dd>
+                                    @(Model.PhoneNumber ?? "None")
+                                    @if (Model.PhoneNumber != null)
+                                    {
+                                        <br />
+                                        <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                                    }
+                                </dd>
+                            *@
+                           
+                            <dd>
+                                
+                                @*@if (Model.TwoFactor)
+                                    {
+                                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <text>Enabled
+                                            <input type="submit" value="Disable" class="btn btn-link" />
+                                            </text>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <text>Disabled
+                                            <input type="submit" value="Enable" class="btn btn-link" />
+                                            </text>
+                                        }
+                                    }*@
+                            </dd>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#file").change(function () {
+
+                var File = this.files;
+
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                }
+
+            })
+
+
+        })
+
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+
+                }
+
+            }
+
+        }
+
+        var ClearPreview = function () {
+            $("#file").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
+
+        }
+       
+            
+        
+
+    </script>
+}
+
+
+
+

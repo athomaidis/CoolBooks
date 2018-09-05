@@ -1,0 +1,250 @@
+﻿@model CoolBooks.Models.Books
+
+@{
+    /**/
+
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "Books", FormMethod.Post, htmlAttributes: new { @id = "editBookForm", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+    <column class="col-lg-6">
+        <div class="form-horizontal">
+            <h4>Books</h4>
+            <hr />
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Created)
+            @if (ViewBag.ReturnUrl != null)
+    {
+        <input type="hidden" id="ReturnUrl" name="ReturnURl" value="@ViewBag.ReturnUrl" />
+}
+else
+{
+        <input type="hidden" id="ReturnUrl" name="ReturnURl" value="" />
+}
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control medium" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AlternativeTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AlternativeTitle, new { htmlAttributes = new { @class = "form-control medium" } })
+                    @Html.ValidationMessageFor(model => model.AlternativeTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Part, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Part, new { htmlAttributes = new { @class = "form-control normal" } })
+                    @Html.ValidationMessageFor(model => model.Part, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, 10, 55, new { htmlAttributes = new { @class = "form-control large" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control normal" } })
+                    @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control normal" } })
+                    @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsDeleted, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-2">
+                    @Html.EditorFor(model => model.IsDeleted, new { htmlAttributes = new { @class = "form-control normal" } })
+                    @Html.ValidationMessageFor(model => model.IsDeleted, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="reset" value="Cancel" class="btn btn-dark" />
+                </div>
+            </div>
+
+        </div>
+
+    </column>
+    <column class="col-lg-6">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-md-2">Creator name</label>
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Users.FirstName)&nbsp;@Html.DisplayFor(model => model.Users.LastName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Author name</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("AuthorId", null, htmlAttributes: new { @class = "form-control medium" })
+                    @Html.ValidationMessageFor(model => model.AuthorId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GenreId, "Genre", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("GenreId", null, htmlAttributes: new { @class = "form-control medium" })
+                    @Html.ValidationMessageFor(model => model.GenreId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div id="imgPreview" class="thumbnail new-thumnail">
+                    <img class="img-responsive" id="targetImg" src="~/Books/GetImage/@Model.Id" style="width:300px; height:300px;" />
+                    <div class="caption">
+                        <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                        <span id="description"></span>
+                    </div>
+                </div>
+                <input id="file" title="Upload a book image" type="file" name="file" class="form-control" />
+            </div>
+
+        </div>
+
+    </column>
+}
+
+<div>
+    @if (ViewBag.ReturnUrl != null)
+    {
+        <a href="@ViewBag.ReturnUrl">Back</a>
+
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(function () {
+        $("#PublishDate").datepicker();
+    });
+
+    /* Modified Code from: https://www.c-sharpcorner.com/article/asp-net-mvc5-jquery-form-validator/ */
+
+    $(document).ready(function () {
+        $('#editBookForm').validate({
+            errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page
+            errorElement: 'div',
+            errorPlacement: function (error, e) {
+                e.parents('.form-group > div').append(error);
+            },
+            highlight: function (e) {
+
+                $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');
+                $(e).closest('.help-block').remove();
+            },
+            success: function (e) {
+                e.closest('.form-group').removeClass('has-success has-error');
+                e.closest('.help-block').remove();
+            },
+            rules: {
+                'Title': {
+                    required: true,
+                    maxlength: 256
+                }
+            },
+            messages: {
+                'Title': {
+                    required: 'Please enter valid title',
+                    maxlength: 'Your text must not be longer than 256 characters'
+                },
+
+            }
+        });
+    });
+
+
+    //-----------------------------
+    // Image preview
+
+    $(document).ready(function () {
+
+        $("#file").change(function () {
+
+            var File = this.files;
+
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+
+        })
+
+
+    })
+
+
+    var ReadImage = function (file) {
+
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file) {
+
+            image.src = _file.target.result;
+            image.onload = function () {
+
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $("#targetImg").attr('src', _file.target.result);
+                $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                $("#imgPreview").show();
+
+            }
+
+        }
+
+    }
+
+    var ClearPreview = function () {
+        $("#file").val('');
+        $("#description").text('');
+        $("#imgPreview").hide();
+
+    }
+
+
+
+</script>

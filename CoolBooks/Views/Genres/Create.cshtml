@@ -1,0 +1,53 @@
+﻿@model CoolBooks.Models.Genres
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add new genre</h2>
+
+@using (Html.BeginForm("Create", "Genres", FormMethod.Post , new { Id = "GenreForm" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @name = "Name", @class = "form-control small", @maxlength = 20, @placeholder = "Type a gender name here", @id = "Name" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Description, 10, 51, new { htmlAttributes = new { @name = "Description", @class = "form-control", @style = "resize:inherit max-width:80% max-height:80%", @maxlength = 2000, @wrap = "hard", @placeholder = "Type a gender description here", @id = "Description" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            <br>
+            <span>Remaining characters : </span><span id="chars">2000</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="CreateGenre" type="submit" value="Create" class="btn btn-primary" />
+            <input id="ClearFields" type="reset" value="Clear" class="btn btn-dark clearGenre"/>
+        </div>
+    </div>
+  
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts
+{
+    <script src="~/Scripts/CustomJavascript.js"></script>
+
+}

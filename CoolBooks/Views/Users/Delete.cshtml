@@ -1,0 +1,78 @@
+﻿@model CoolBooks.Models.Users
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Dictionary<string, int> userIdNr = (Dictionary<string, int>)Session["UserIdNr"];
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Users</h4>
+    <hr />
+    <column class="col-lg-3">
+        <img src="/Users/GetImageById/@userIdNr[Model.UserId]" height="200" />
+    </column>
+
+    <column class="col-lg-9">
+        <dl class="dl-horizontal">
+
+            <dt>
+                Name
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Birthdate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Created)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Created)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsDeleted)
+            </dd>
+
+        </dl>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+
+        }
+    </column>
+</div>

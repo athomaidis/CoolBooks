@@ -1,0 +1,73 @@
+﻿@model CoolBooks.Models.Books
+
+@{
+    ViewBag.Title = "Details";
+    var authorization = new CoolBooks.Authorization(new Authentication());
+
+}
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/Content/starr.css" rel="stylesheet" />
+<script src="~/Scripts/starr.js"></script>
+
+<h2>Details for book</h2>
+
+
+@if (Model.IsDeleted)
+{
+    <p class="text-warning">This book has been deleted.</p>
+}
+    <hr />
+<column class="col-lg-3">
+    <img src="/Books/GetImage/@Model.Id"  width="270"/>
+    <br>
+    <Strong>Creator</Strong>&nbsp;
+    @Html.DisplayFor(model => model.Users.FirstName)&nbsp;@Html.DisplayFor(model => model.Users.LastName)<br />
+
+    <Strong>@Html.DisplayNameFor(model => model.ISBN)</Strong>&nbsp;
+    @Html.DisplayFor(model => model.ISBN)<br />
+
+    <Strong>@Html.DisplayNameFor(model => model.PublishDate)</Strong> &nbsp;
+    @Html.DisplayFor(model => model.PublishDate)<br />
+
+</column>
+
+
+<column class="col-lg-9">
+    <h4><Strong>@Html.DisplayNameFor(model => model.Title)</Strong>&nbsp;@Html.DisplayFor(model => model.Title)</h4><br />
+
+    <Strong>@Html.DisplayNameFor(model => model.Description)</Strong>&nbsp;@Html.DisplayFor(model => model.Description)<br /><br />
+
+    <strong>Genre</strong>&nbsp;@Html.DisplayFor(model => model.Genres.Name)<br />
+    <strong>Author</strong>&nbsp;@Html.DisplayFor(model => model.Authors.FullName)<br />
+    <strong>@Html.DisplayNameFor(model => model.Created)</strong>&nbsp;@Html.DisplayFor(model => model.Created)<br />
+
+    <br /><hr />
+    <div id="reviewView">
+        @{Html.RenderAction("_Reviews", "View", new { id = Model.Id });}
+    </div>
+    <br />
+
+    @if ((User.IsInRole("Admin") || User.IsInRole("BasicUser") ) && !Model.IsDeleted )
+    {
+        <div id="reviewContent">
+            @{Html.RenderAction("_Create", "View", new { id = Model.Id });}
+        </div>
+    }
+</column>
+
+<p>
+    @if (authorization.IsAuthorizedToEditBook(Model, User))
+    {
+        @Html.ActionLink("Edit book", "Edit", "Books", new { id = Model.Id }, null); <text>|</text>
+    }
+
+    @if (ViewBag.ReturnUrl != null)
+    {
+        <a href="@ViewBag.ReturnUrl">Back</a>
+
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index", "Books")
+    }
+</p>

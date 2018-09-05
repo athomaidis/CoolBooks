@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolBooks", "CoolBooks\CoolBooks.csproj", "{39D6C72D-E643-4223-8C54-4D21C7289111}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolBooks.ControllerTests", "CoolBooks.ControllerTests\CoolBooks.ControllerTests.csproj", "{DB0B63B6-47E9-485E-99BD-9680C9DACB83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolBooks.SecurityTests", "CoolBooks.SecurityTests\CoolBooks.SecurityTests.csproj", "{3603C9C0-24B2-4322-82F5-AC27BBC004D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{80572445-CE8D-46F3-9035-7F5965196CE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39D6C72D-E643-4223-8C54-4D21C7289111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D6C72D-E643-4223-8C54-4D21C7289111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D6C72D-E643-4223-8C54-4D21C7289111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D6C72D-E643-4223-8C54-4D21C7289111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB0B63B6-47E9-485E-99BD-9680C9DACB83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0B63B6-47E9-485E-99BD-9680C9DACB83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0B63B6-47E9-485E-99BD-9680C9DACB83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0B63B6-47E9-485E-99BD-9680C9DACB83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3603C9C0-24B2-4322-82F5-AC27BBC004D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3603C9C0-24B2-4322-82F5-AC27BBC004D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3603C9C0-24B2-4322-82F5-AC27BBC004D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3603C9C0-24B2-4322-82F5-AC27BBC004D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E0BEFB0-DD18-4DD3-A1E7-5A5DA104CC2C}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://shahfahad583-hotmail.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CoolBooks\\CoolBooks.csproj
+		SccProjectName1 = CoolBooks
+		SccLocalPath1 = CoolBooks
+		SccProjectUniqueName2 = CoolBooks.ControllerTests\\CoolBooks.ControllerTests.csproj
+		SccProjectName2 = CoolBooks.ControllerTests
+		SccLocalPath2 = CoolBooks.ControllerTests
+		SccProjectUniqueName3 = CoolBooks.SecurityTests\\CoolBooks.SecurityTests.csproj
+		SccProjectName3 = CoolBooks.SecurityTests
+		SccLocalPath3 = CoolBooks.SecurityTests
+	EndGlobalSection
+EndGlobal

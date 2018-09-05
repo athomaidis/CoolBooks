@@ -1,0 +1,17 @@
+﻿a {
+    color:black;
+    cursor:pointer;
+}
+.btn-marg {
+    margin-bottom:30px;
+}
+#LastName-error , #FirstName-error {
+    color: red;
+}
+
+span {
+    cursor:pointer;
+}
+/* ///// Footer */
+
+

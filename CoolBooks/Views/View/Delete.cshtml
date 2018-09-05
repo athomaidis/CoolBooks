@@ -1,0 +1,95 @@
+﻿@model CoolBooks.Models.Reviews
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this review
+    ?</h3>
+<div>
+    <h4>Reviews</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+        @Html.HiddenFor(model => model.Id)
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+
+
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        if (ViewBag.ReturnUrl != null)
+        {
+            <input type="hidden" id="ReturnUrl" name="ReturnURl" value="@ViewBag.ReturnUrl" />
+        }
+        else
+        {
+            <input type="hidden" id="ReturnUrl" name="ReturnURl" value="" />
+        }
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @if (ViewBag.ReturnUrl != null)
+            {
+                <a href="@ViewBag.ReturnUrl">Back</a>
+
+            }
+            else
+            {
+                @Html.ActionLink("Back to List", "Index", new { id = Model.BookId })
+            }
+        </div>
+    }
+</div>

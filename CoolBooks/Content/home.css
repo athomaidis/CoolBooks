@@ -1,0 +1,369 @@
+﻿/*
+Fade content bs-carousel with hero headers
+Code snippet by maridlcrmn (Follow me on Twitter @maridlcrmn) for Bootsnipp.com
+Image credits: unsplash.com
+*/
+
+/********************************/
+/*       Fade Bs-carousel       */
+/********************************/
+.fade-carousel {
+    position: relative;
+    height: 100vh;
+}
+
+    .fade-carousel .carousel-inner .item {
+        height: 100vh;
+    }
+
+    .fade-carousel .carousel-indicators > li {
+        margin: 0 2px;
+        background-color: #f39c12;
+        border-color: #f39c12;
+        opacity: .7;
+    }
+
+        .fade-carousel .carousel-indicators > li.active {
+            width: 10px;
+            height: 10px;
+            opacity: 1;
+        }
+
+/********************************/
+/*          Hero Headers        */
+/********************************/
+.hero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.75);
+    -webkit-transform: translate3d(-50%,-50%,0);
+    -moz-transform: translate3d(-50%,-50%,0);
+    -ms-transform: translate3d(-50%,-50%,0);
+    -o-transform: translate3d(-50%,-50%,0);
+    transform: translate3d(-50%,-50%,0);
+}
+
+    .hero h1 {
+        font-size: 6em;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+
+.fade-carousel .carousel-inner .item .hero {
+    opacity: 0;
+    -webkit-transition: 2s all ease-in-out .1s;
+    -moz-transition: 2s all ease-in-out .1s;
+    -o-transition: 2s all ease-in-out .1s;
+    transition: 2s all ease-in-out .1s;
+}
+
+.fade-carousel .carousel-inner .item.active .hero {
+    opacity: 1;
+    -webkit-transition: 2s all ease-in-out .1s;
+    -moz-transition: 2s all ease-in-out .1s;
+    -o-transition: 2s all ease-in-out .1s;
+    transition: 2s all ease-in-out .1s;
+}
+
+/********************************/
+/*            Overlay           */
+/********************************/
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #080d15;
+    opacity: .7;
+}
+
+/********************************/
+/*          Custom Buttons      */
+/********************************/
+.btn.btn-lg {
+    padding: 10px 40px;
+}
+
+.btn.btn-hero,
+.btn.btn-hero:hover,
+.btn.btn-hero:focus {
+    color: #f5f5f5;
+    background-color: #1abc9c;
+    border-color: #1abc9c;
+    outline: none;
+    margin: 20px auto;
+}
+
+/********************************/
+/*       Slides backgrounds     */
+/********************************/
+.fade-carousel .slides .slide-1,
+.fade-carousel .slides .slide-2,
+.fade-carousel .slides .slide-3 {
+    height: 100vh;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.fade-carousel .slides .slide-1 {
+    background-image: url(https://ununsplash.imgix.net/photo-1416339134316-0e91dc9ded92?q=75&fm=jpg&s=883a422e10fc4149893984019f63c818);
+}
+
+.fade-carousel .slides .slide-2 {
+    background-image: url(https://ununsplash.imgix.net/photo-1416339684178-3a239570f315?q=75&fm=jpg&s=c39d9a3bf66d6566b9608a9f1f3765af);
+}
+
+.fade-carousel .slides .slide-3 {
+    background-image: url(https://ununsplash.imgix.net/photo-1416339276121-ba1dfa199912?q=75&fm=jpg&s=9bf9f2ef5be5cb5eee5255e7765cb327);
+}
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px) {
+    .hero {
+        width: 980px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .hero h1 {
+        font-size: 4em;
+    }
+}
+
+
+/**/
+
+.wrapperColor {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.container-fostrap {
+    display: table-cell;
+    padding: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.fostrap-logo {
+    width: 100px;
+    margin-bottom: 15px
+}
+
+h1.heading {
+    color: #fff;
+    font-size: 1.15em;
+    font-weight: 900;
+    margin: 0 0 0.5em;
+    color: #505050;
+}
+
+@media (min-width: 450px) {
+    h1.heading {
+        font-size: 3.55em;
+    }
+}
+
+@media (min-width: 760px) {
+    h1.heading {
+        font-size: 3.05em;
+    }
+}
+
+@media (min-width: 900px) {
+    h1.heading {
+        font-size: 3.25em;
+        margin: 0 0 0.3em;
+    }
+}
+
+.card {
+    display: block;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+    transition: box-shadow .25s;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+.img-card {
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    display: block;
+    overflow: hidden;
+    
+}
+
+    .img-card img {
+    
+        height: 200px;
+        object-fit: cover;
+        transition: all .25s ease;
+
+ }
+
+.card-content {
+    padding: 15px;
+    text-align: left;
+}
+
+.card-title {
+    margin-top: 0px;
+    font-weight: 700;
+    font-size: 1.65em;
+}
+
+    .card-title a {
+        color: #000;
+        text-decoration: none !important;
+    }
+/** CSS TEMPORAL **/
+.wrapperButtons > .container-fostrap > .content > .container {
+    padding: 10px 20px;
+    margin: 0 0 20px;
+    border-left: 5px solid #eee;
+}
+
+.btn-transpt-tmp, .btn-transpt-tmp:hover {
+    font-size: 16px;
+    color: #666;
+    font-family: "dinnext-regular";
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    border: solid 1px #666;
+    max-width: 170px;
+    padding: 6px 20px !important;
+    margin: 10px 0;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-decoration: none !important;
+}
+
+    .btn-transpt-tmp.hover, .btn-transpt-tmp.hover:hover {
+        background-color: #666;
+        color: #FFF;
+    }
+
+    .btn-transpt-tmp.focus, .btn-transpt-tmp.focus:hover {
+        background-color: #F37F42;
+        color: #FFF;
+    }
+
+.btn-white-tmp, .btn-white-tmp:hover {
+    font-size: 16px;
+    border: 1px solid #0154A0;
+    background-color: #0154A0;
+    color: #FFF;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    max-width: 180px;
+    padding: 6px 20px !important;
+    margin: 10px 0;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-decoration: none !important;
+}
+
+    .btn-white-tmp.hover, .btn-white-tmp.hover:hover {
+        background-color: #fff !important;
+        color: #0154A0 !important;
+    }
+
+    .btn-white-tmp.focus, .btn-white-tmp.focus:hover {
+        background-color: #F37F42 !important;
+        color: #FFF !important;
+    }
+
+.btn-info-azul-tmp, .btn-info-azul-tmp:hover {
+    color: #FFF;
+    display: inline-block;
+    width: 100%;
+    max-width: 160px;
+    font-size: 16px;
+    font-family: "dinnext-regular";
+    text-align: center;
+    transition: all 0.3s ease 0s;
+    border-radius: 5px;
+    background-color: #0154A0;
+    border: 1px solid #0154A0;
+    ;
+    top: 290px;
+    left: 30px;
+    padding: 0.6em !important;
+    text-decoration: none !important;
+}
+
+    .btn-info-azul-tmp.hover, .btn-info-azul-tmp.hover:hover {
+        background-color: #fff;
+        color: #0154A0;
+    }
+
+    .btn-info-azul-tmp.focus, .btn-info-azul-tmp.focus:hover {
+        background-color: #F37F42;
+        color: #FFF;
+    }
+
+.btn-info-naranja-tmp, .btn-info-naranja-tmp:hover {
+    font-size: 16px;
+    color: #FFF;
+    font-family: "dinnext-regular";
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    background-color: #FF6702;
+    border: solid 1px #FF6702;
+    max-width: 170px;
+    padding: 6px 20px !important;
+    margin: 10px 0;
+    transition: .3s;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-decoration: none;
+}
+
+    .btn-info-naranja-tmp.hover, .btn-info-naranja-tmp.hover:hover {
+        background-color: #FFF;
+        border: solid 1px #FF6601;
+        color: #FF6601;
+    }
+
+    .btn-info-naranja-tmp.focus, .btn-info-naranja-tmp.focus:hover {
+        background-color: #F37F42;
+        color: #FFF;
+    }
+
+    /*Footer**/
+

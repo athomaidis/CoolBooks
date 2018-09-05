@@ -1,0 +1,125 @@
+﻿@using CoolBooks.Models
+@model IEnumerable<CoolBooks.ViewModels.BookReviewsViewModel>
+
+@{
+    ViewBag.Title = "My Reviews";
+    var authorization = new CoolBooks.Authorization(new Authentication());
+    int i = 0;
+}
+<link href="~/Content/starr.css" rel="stylesheet" />
+<script src="~/Scripts/starr.js"></script>
+<h2>My Reviews</h2>
+@using (Html.BeginForm())
+{
+    <p>
+        Search string: @Html.TextBox("SearchString")
+        <input type="submit" value="Filter" class="btn btn-primary btn.marg" />
+    </p><br />
+}
+<table id="booksDataTable" class="table table-striped display">
+    <thead>
+
+        <tr>
+            <th>
+                S.No
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.books.Title)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            <tr id="@item.books.Id" class="bookRow">
+                <td>
+                    @i
+                </td>
+                <td>
+                    <img src="/Books/GetImage/@item.books.Id" height="120" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.books.Title)
+                </td>
+
+                <td>
+                    @if (authorization.IsAuthorizedToEditBook(item.books, User))
+                    {
+                        <text><a href="/Books/Edit/@item.books.Id?ReturnUrl=/Reviews/MyReviews" title="Edit"><span class="glyphicon glyphicon-edit link-color"></span></a></text>
+                    }
+                    <a href="/View/Index/@item.books.Id?ReturnUrl=/Reviews/MyReviews" title="View"><span class="glyphicon glyphicon-eye-open link-color"></span></a>
+                    @if (authorization.IsAuthorizedToDeleteBook(item.books, User) && !item.books.IsDeleted)
+                    {
+                        <text><a href="/Books/Delete/@item.books.Id?ReturnUrl=/Reviews/MyReviews" title="Delete"><span class="glyphicon glyphicon-trash link-color js-delete"></span></a></text>
+                    }
+
+                </td>
+            </tr>
+            <tr id="@item.books.Id" class="bookRow">
+                <td colspan="4">
+                    <column class="col-lg-12">
+
+                        <table id="reviewTable" class="table table-striped display">
+                            <thead>
+                                <tr>
+                                    <th>Created</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ReviewViewModel review in item.reviews)
+                                {
+
+                                    <tr>
+                                        <td>@Html.DisplayFor(model => review.Created)</td>
+                                        <td>@review.Title</td>
+                                        <td>
+                                            @if (review.Text.Length < 200)
+                                            {
+                                                @Html.DisplayFor(modelItem => review.Text)
+                                            }
+                                            else
+                                            {
+                                                @review.Text.Remove(200, review.Text.Length - 200)<text>...</text>;
+
+                                            }
+                                        </td>
+                                        <td class="starrrdisplay">
+                                            @for (int j = 1; j <= 5; j++)
+                                            {
+                                                if (j <= review.Rating)
+                                                {
+                                                    <span class="fa fa-star"></span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fa fa-star-o"></span>
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (new CoolBooks.Authorization(new CoolBooks.Authentication()).IsAuthorizedToDeleteReview(review, User))
+                                            {
+                                                @Html.ActionLink("Delete", "Delete", "View", new { id = review.Id, ReturnUrl = "/Reviews/MyReviews" }, new { @class = "btn btn-danger " })
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </column>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

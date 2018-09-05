@@ -1,0 +1,38 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/Images/BannerPic/logo/logo.gif" alt="Alternate Text" />
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Books", "Index", "Books")</li>
+                <li>@Html.ActionLink("Top", "TopBooks", "Books")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Team", "Team", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                @if (User.IsInRole("Admin") || User.IsInRole("BasicUser"))
+    {
+            <li>@Html.ActionLink("My Reviews", "MyReviews", "Reviews")</li>
+}
+
+                @if (User.IsInRole("Admin"))
+    {
+            <li>@Html.ActionLink("Reviews", "Index", "Reviews")</li>
+            <li>@Html.ActionLink("Authors", "Index", "Authors")</li>
+            <li>@Html.ActionLink("Genres", "Index", "Genres")</li>
+            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+}
+
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>
